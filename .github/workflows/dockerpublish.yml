@@ -47,7 +47,7 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: spring-boot-web
-          path: target/ 
+          path: docker-spring-boot/target/ 
 
       - name: Build image
         run: docker build . --file docker-spring-boot/Dockerfile --tag image
