@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_NAME: docker_image
-  test_var: ${{ false }}
+  test_var: ${{ true }}
 
 jobs:
   build:
