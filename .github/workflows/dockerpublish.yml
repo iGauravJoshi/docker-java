@@ -27,11 +27,17 @@ jobs:
     - name: Build with Maven
       run:
         mvn clean package --file docker-spring-boot/pom.xml
+    
+    - name: Upload artifact A
+      uses: actions/upload-artifact@v1
+      with:
+        name: 'Artifact-A'
+        path: path/to/artifact-A
 
     - uses: actions/upload-artifact@v1
       with:
        name: spring-boot-web
-       path: target/
+       path: docker-spring-boot/target/
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
