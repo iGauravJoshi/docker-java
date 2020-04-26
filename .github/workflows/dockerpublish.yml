@@ -7,20 +7,15 @@ on:
       - master
       - docker
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
-
   # Run tests for any PRs.
   pull_request:
 
 env:
-  # TODO: Change variable to your image's name.
   IMAGE_NAME: docker_image
+  test: ${{ false }}
 
 jobs:
   build:
-
     runs-on: ubuntu-16.04
 
     steps:
@@ -36,8 +31,6 @@ jobs:
     - uses: actions/checkout@v1
 
     - run: mkdir -p target/
-
-    - run: echo hello > target/spring-boot-web.jar
 
     - uses: actions/upload-artifact@v1
       with:
@@ -58,7 +51,7 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: spring-boot-web
-          path: target/
+          path: target/ 
 
       - name: Build image
         run: docker build . --file docker-spring-boot/Dockerfile --tag image
@@ -84,6 +77,7 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
+          echo 
 
           docker tag image $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
