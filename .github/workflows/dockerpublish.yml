@@ -37,11 +37,11 @@ jobs:
 
     - run: mkdir -p target/
 
-    - run: echo hello > target/de-sy-file.jar
+    - run: echo hello > target/spring-boot-web.jar
 
     - uses: actions/upload-artifact@v1
       with:
-       name: de-sy-file
+       name: spring-boot-web
        path: target/
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
@@ -57,7 +57,7 @@ jobs:
 
       - uses: actions/download-artifact@v1
         with:
-          name: de-sy-file
+          name: spring-boot-web
           path: target/
 
       - name: Build image
