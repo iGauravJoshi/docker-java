@@ -26,7 +26,7 @@ jobs:
 
     - name: Build with var
       run: mvn clean package --file docker-spring-boot/pom.xml
-      if: ${{ test_var }} == true
+      if: $test_var == true
 
     - name: Build without var
       run: mvn clean package --file docker-spring-boot/pom.xml
