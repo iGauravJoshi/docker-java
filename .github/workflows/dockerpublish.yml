@@ -40,7 +40,7 @@ jobs:
 
     - uses: actions/upload-artifact@v1
       with:
-       name: ${{ FILE_NAME }}
+       name: env.FILE_NAME
        path: docker-spring-boot/target/
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
