@@ -3,6 +3,7 @@ name: Build Package and Create Docker Image
 on:
   push:
     branches:
+      - master
       - docker
 
 env:
