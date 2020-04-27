@@ -1,0 +1,5 @@
+<server>
+    <id>github</id>
+    <username>${{ github.actor }}</username>
+    <password>${{ secrets.GH_TOKEN }}</password>
+</server>
