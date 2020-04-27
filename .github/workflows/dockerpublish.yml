@@ -27,14 +27,14 @@ jobs:
     - name: Build with var
       run: |
         mvn clean package --file docker-spring-boot/pom.xml
-        $FILE_NAME += var-SNAPSHOT
+        FILE_NAME=$FILE_NAME-var-SNAPSHOT
         echo $FILE_NAME
       if: env.test_var == 'true'
 
     - name: Build without var
       run: |
         mvn clean package --file docker-spring-boot/pom.xml
-        $FILE_NAME += SNAPSHOT
+        FILE_NAME=$FILE_NAME-SNAPSHOT
         echo $FILE_NAME
       if: env.test_var == 'false'
 
