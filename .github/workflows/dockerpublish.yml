@@ -26,16 +26,16 @@ jobs:
 
     - name: Build with var
       run: |
-        mvn clean package --file docker-spring-boot/pom.xml
-        FILE_NAME=$FILE_NAME-var-SNAPSHOT
+        FILE_NAME=$FILE_NAME-var-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
+        mvn clean package --file docker-spring-boot/pom.xml
       if: env.test_var == 'true'
 
     - name: Build without var
       run: |
-        mvn clean package --file docker-spring-boot/pom.xml
-        FILE_NAME=$FILE_NAME-SNAPSHOT
+        FILE_NAME=$FILE_NAME-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
+        mvn clean package --file docker-spring-boot/pom.xml
       if: env.test_var == 'false'
 
     - uses: actions/upload-artifact@v1
