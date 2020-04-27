@@ -36,6 +36,10 @@ jobs:
         FILE_NAME=$FILE_NAME-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
         mvn clean package --file docker-spring-boot/pom.xml
+        mvn deploy:deploy-file -Dfile=docker-spring-boot/target/spring-boot-web.jar
+          -Durl=https://maven.pkg.github.com/iGauravJoshi/docker-java
+          -Dpacking=jar
+          -DrepositoryId=github
       if: env.test_var == 'false'
 
     - uses: actions/upload-artifact@v1
