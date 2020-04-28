@@ -3,10 +3,6 @@ name: Build Package and Create Docker Image
 on:
   repository_dispatch:
     types: do-something
-  push:
-    branches:
-      - master
-      - docker
 
 env:
   IMAGE_NAME: docker_image
@@ -20,6 +16,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.client_payload.ref }}
       
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
@@ -29,21 +27,21 @@ jobs:
       run: echo "Doing Something..."
         
     - name: Do Something Based On Triggered Event Data
-      run: 'echo "Triggered event text: ${{ github.event.client_payload.text }}"'
+      run: 'echo "Triggered event text: ${{ github.event.client_payload.hd3 }}"'
 
     - name: Build with var
       run: |
         FILE_NAME=$FILE_NAME-var-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
         mvn clean package --file docker-spring-boot/pom.xml
-      if: env.test_var == 'true'
+      if: github.event.client_payload.hd3 == 'true'
 
     - name: Build without var
       run: |
         FILE_NAME=$FILE_NAME-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
         mvn clean package --file docker-spring-boot/pom.xml
-      if: env.test_var == 'false'
+      if: github.event.client_payload.hd3 == 'false'
 
     - uses: actions/upload-artifact@v1
       with:
