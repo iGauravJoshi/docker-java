@@ -27,7 +27,7 @@ jobs:
       run: echo "Doing Something..."
         
     - name: Do Something Based On Triggered Event Data
-      run: 'echo "Triggered event text: ${{ github.event.client_payload.hd3 }}"'
+      run: 'echo "Triggered event text: ${{ github.event.client_payload.hd3 }} ${{ github.event.client_payload.ref }}"'
 
     - name: Build with var
       run: |
