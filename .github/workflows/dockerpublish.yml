@@ -31,6 +31,7 @@ jobs:
 
     - name: Build with var
       run: |
+        github.ref=${{ github.event.client_payload.ref }}
         FILE_NAME=$FILE_NAME-var-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
         mvn clean package --file docker-spring-boot/pom.xml
