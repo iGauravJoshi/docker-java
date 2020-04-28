@@ -29,6 +29,7 @@ jobs:
       run: |
         FILE_NAME=$FILE_NAME-var-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
+        echo 'Deploy ${{ github.event.test.envval }}'
         mvn clean package --file docker-spring-boot/pom.xml
       if: env.test_var == 'true'
 
@@ -37,11 +38,12 @@ jobs:
         FILE_NAME=$FILE_NAME-$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')-SNAPSHOT
         echo $FILE_NAME
         mvn clean package --file docker-spring-boot/pom.xml
+        mkdir -p test
+        mv docker-spring-boot/target test
       if: env.test_var == 'false'
 
     - uses: actions/upload-artifact@v1
       with:
-       name: env.FILE_NAME
        path: docker-spring-boot/target/
  
       #mvn deploy:deploy-file -Dfile=docker-spring-boot/target/spring-boot-web.jar
